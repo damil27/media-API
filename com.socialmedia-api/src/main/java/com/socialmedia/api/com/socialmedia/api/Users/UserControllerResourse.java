@@ -1,8 +1,7 @@
 package com.socialmedia.api.com.socialmedia.api.Users;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,7 +20,17 @@ public class UserControllerResourse {
 
     @GetMapping("/users/{id}")
     public User FetchUser(@PathVariable Integer id){
-        return dataBaseService.findOne(id);
+        User user = dataBaseService.findOne(id);
+        if(user == null){
+            throw new UserNotFoundException("id" + id);
+        }
+        return user;
+    }
+
+    @PostMapping("users")
+    public ResponseEntity<User> createUser(@RequestBody User user){
+          dataBaseService.save(user);
+          return ResponseEntity.created(null).body(user);
     }
 
 }
