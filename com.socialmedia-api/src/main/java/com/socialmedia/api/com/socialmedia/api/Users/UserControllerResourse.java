@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserControllerResourse {
@@ -31,6 +32,15 @@ public class UserControllerResourse {
     public ResponseEntity<User> createUser(@RequestBody User user){
           dataBaseService.save(user);
           return ResponseEntity.created(null).body(user);
+    }
+    @DeleteMapping("/users/{id}")
+    public Optional<User> deleteUser(@PathVariable() Integer id){
+        Optional<User> user = dataBaseService.deleteUser(id);
+        if(user == null){
+            throw  new UserNotFoundException( id + " This user user does not exist in the database.");
+        }
+        return user;
+        
     }
 
 }

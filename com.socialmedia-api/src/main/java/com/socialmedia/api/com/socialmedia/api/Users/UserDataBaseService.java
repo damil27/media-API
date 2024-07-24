@@ -30,6 +30,13 @@ public class UserDataBaseService {
          return user.orElse(null);
      }
 
+     public Optional<User> deleteUser(Integer id){
+         Predicate<User> predicate = user -> user.getId().equals(id);
+         Optional<User> deletedUser = users.stream().filter(predicate).findFirst();
+        users.removeIf(predicate);
+         return deletedUser;
+     }
+
      public User save(User user){
          user.setId(++userCounter);
          users.add(user);
