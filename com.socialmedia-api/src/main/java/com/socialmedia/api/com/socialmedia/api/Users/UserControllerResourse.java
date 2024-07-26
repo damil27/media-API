@@ -36,7 +36,7 @@ public class UserControllerResourse {
     @DeleteMapping("/users/{id}")
     public Optional<User> deleteUser(@PathVariable() Integer id){
         Optional<User> user = dataBaseService.deleteUser(id);
-        if(user == null){
+        if(user.isEmpty()){
             throw  new UserNotFoundException( id + " This user user does not exist in the database.");
         }
         return user;
