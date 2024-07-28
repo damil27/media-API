@@ -1,10 +1,16 @@
 package com.socialmedia.api.com.socialmedia.api.Users;
 
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class User {
+
     private  Integer id;
+    @Size(min = 2, message = "Atleast minimum of 2 charater is required.")
     private String name;
+    @Past(message = "Data must be in the past.")
     private LocalDate dateOfBirth;
 
     public User(Integer id, String name, LocalDate dateOfBirth){

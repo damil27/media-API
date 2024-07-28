@@ -1,6 +1,8 @@
 package com.socialmedia.api.com.socialmedia.api.Users;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +31,7 @@ public class UserControllerResourse {
     }
 
     @PostMapping("users")
-    public ResponseEntity<User> createUser(@RequestBody User user){
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user){
           dataBaseService.save(user);
           return ResponseEntity.created(null).body(user);
     }
